@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Wareg Food</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/2f1e3b5fc9.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <a href="#mainContent" class="skip-link" tabindex="0"
+      >Menuju konten utama</a
+    >
+    <header>
+      <h1><i class="fa-solid fa-bowl-food"></i> WaregFood</h1>
+      <button
+        id="drawerBtn"
+        aria-label="Menu drawer"
+        class="drawer-button"
+        tabindex="0"
+        aria-label="Tombol buka drawer"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <nav class="off-canvas" id="drawers">
+        <ul>
+          <li id="logo-offcanvas">
+            <p>
+              <i class="fa-solid fa-bowl-food"></i>
+              WaregFood
+            </p>
+          </li>
+          <li>
+            <a href="/" class="drawer" aria-label="Home link">Home</a>
+          </li>
+          <li>
+            <a href="#" class="drawer" aria-label="Favorite link">Favorite</a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/adtyalan"
+              class="drawer"
+              target="_blank"
+              aria-label="About Us link"
+              >About Us</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <article>
+        <h2 class="hidden-header">Header 2</h2>
+        <section id="heroContainer" class="heroContainer">
+          <h3 class="hidden-header">Header 3</h3>
+          <div class="text-container">
+            <p class="h1-size-p"><i class="fa-solid fa-bowl-food"></i></p>
+            <p class="h2-size-p">Hungry? Open WaregFood!</p>
+            <p class="h3-size-p">
+              Explore your favorite restaurant from your favorite places here,
+              on our web. As smooth as it is an app. Countless restos to try.
+            </p>
+            <div class="welcome-container">
+              <label for="search" class="hidden-header"></label>
+              <input
+                id="search"
+                name="search"
+                type="text"
+                aria-label="type your search keyword"
+              />
+              <button>
+                <i
+                  class="fa-solid fa-magnifying-glass"
+                  aria-label="search button"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </section>
+      </article>
+      <article id="mainContent">
+        <h2>Explore Restaurant</h2>
+        <section class="cardItem">
+          <h3 class="hidden-header">Header 3</h3>
+        </section>
+      </article>
+      <article>
+        <h2>Why use the WaregFood?</h2>
+        <section class="cardItemReason">
+          <h3 class="hidden-header">Header 3</h3>
+        </section>
+      </article>
+    </main>
+    <footer>
+      <div>
+        <h2><i class="fa-solid fa-bowl-food"></i> WaregFood</h2>
+        <p class="footer-head">
+          It's like having the entire neighborhood's kitchen in your pocket
+        </p>
+        <p>
+          Enjoy a large variety of meals, deals, and member-only features in
+          WaregFood web.
+        </p>
+        <p>&copy; 2024 WaregFood | Alan Aditya</p>
+      </div>
+    </footer>
+  </body>
+</html>

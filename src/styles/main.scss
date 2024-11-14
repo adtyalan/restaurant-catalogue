@@ -1,0 +1,581 @@
+$primary-color: RGB(214, 35, 0);
+$secondary-color: RGB(255, 135, 50);
+$touch-target-min: 44px;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+button {
+  box-sizing: border-box;
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
+}
+
+a {
+  box-sizing: border-box;
+  display: inline-block;
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
+}
+
+input {
+  box-sizing: border-box;
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
+}
+
+.h1-size-p {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1rem;
+}
+
+.h2-size-p {
+  font-size: larger;
+  font-weight: 600;
+  margin: 1rem;
+}
+
+.h3-size-p {
+  font-size: small;
+}
+
+.hidden-header {
+  display: none;
+}
+
+.skip-link {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  padding: 2rem;
+  background-color: #bf1722;
+  color: white;
+  z-index: 101;
+  margin: 0;
+  padding: 0;
+
+  &:focus {
+  top: 12px;
+  outline: 4px solid orange;
+  padding: 0.5rem;
+  }
+}
+
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 1.5rem;
+  background-color: white;
+  color: $primary-color;
+}
+
+header > h1 {
+  font-size: x-large;
+}
+
+.drawer-button {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background-color: white;
+  color: $primary-color;
+  cursor: pointer;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  z-index: 101;
+}
+
+.off-canvas {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  padding: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.off-canvas ul {
+  display: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+}
+
+.off-canvas ul li {
+  padding: 1rem 1rem;
+  justify-content: center;
+}
+
+.off-canvas ul li h2 {
+  margin: 1rem 0;
+  font-size: large;
+}
+
+.off-canvas ul li p {
+  font-size: larger;
+  font-weight: 600;
+}
+
+.off-canvas ul li a {
+  text-decoration: none;
+  color: $secondary-color;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.off-canvas.open {
+  display: flex;
+}
+
+// .text-container {
+//   position: absolute;
+//   top: 8%;
+//   left: 0;
+//   width: 100%;
+// }
+
+.text-container {
+  grid-area: 1 / 1 / 2 / 2;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  padding: 1rem 3rem;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroImage {
+  grid-area: 1 / 1 / 2 / 2;
+  margin: 0rem;
+  width: 100%;
+  height: 450px;
+  border-radius: 0;
+  object-fit: cover;
+  filter: brightness(50%);
+}
+
+.welcome-container {
+  grid-area: 1 / 1 / 2 / 2;
+  width: 150px;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 1rem;
+}
+
+.welcome-container > button {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 2rem;
+  color: white;
+  font-size: larger;
+  cursor: pointer;
+}
+
+.welcome-container > label {
+  color: white;
+}
+
+.welcome-container > input {
+  padding: 0.6rem;
+  border-radius: 2rem;
+  border: none;
+}
+
+.heroContainer {
+  margin-inline: 0;
+  margin-block: 0;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+// Untuk buat margin estetik
+// .heroContainer {
+//   margin-inline: 1rem;
+//   margin-block: 1rem;
+// }
+
+article > h2 {
+  text-align: center;
+  font-size: x-large;
+  font-weight: 600;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+footer {
+  color: white;
+  background-color: $primary-color;
+  padding: 0.2rem 1rem;
+}
+
+footer > div {
+  padding: 1rem;
+  font-size: small;
+}
+
+.footer-head {
+  font-weight: 600;
+  font-size: large;
+}
+
+h3 {
+  text-align: center;
+}
+
+.cardItem {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  margin: 2rem;
+  gap: 1rem;
+}
+
+.cardItemReason {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  margin: 2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.childCard {
+  position: relative;
+  border: 1px solid $secondary-color;
+  border-radius: 1rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.childCardReason {
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  background-image: linear-gradient(to bottom right, #343131, #a04747);
+  color: white;
+}
+
+.childCardReason > img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.childCardReason > p {
+  font-weight: 600;
+  font-size: medium;
+}
+
+.cardImage {
+  position: relative;
+}
+
+.cardImageReason {
+  width: 50px;
+  height: 50px;
+}
+
+.cardContent > p {
+  margin-inline: 0px;
+  margin-block: 0px;
+}
+
+.cardContent > h4 {
+  margin-inline: 0px;
+  margin-block: 0px;
+}
+
+.rating {
+  position: absolute;
+  top: 10px; /* Atur jarak dari atas */
+  left: 16px; /* Atur jarak dari kiri */
+  color: white; /* Ganti warna teks agar terlihat jelas */
+  background-color: rgba(0, 0, 0, 0.5); /* Latar belakang semi transparan */
+  padding: 5px; /* Atur padding jika perlu */
+}
+
+.moreText {
+  display: none;
+}
+
+@media screen and (min-width: 375px) {
+  .h1-size-p {
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 1rem;
+  }
+  
+  .h2-size-p {
+    font-size: x-large;
+    font-weight: 600;
+    margin: 1rem;
+  }
+  
+  .h3-size-p {
+    font-size: medium;
+  }
+
+  .heroContainer {
+    margin-inline: 0;
+    margin-block: 0;
+    display: grid;
+  }
+
+  .text-container {
+    grid-area: 1 / 1 / 2 / 2;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    padding: 1rem 3rem;
+    width: auto;
+  }
+  
+  .heroImage {
+    grid-area: 1 / 1 / 2 / 2;
+    margin: 0rem;
+    width: 100%;
+    height: 450px;
+    border-radius: 0;
+    object-fit: cover;
+    filter: brightness(50%);
+  }
+  
+  .welcome-container {
+    grid-area: 1 / 1 / 2 / 2;
+    width: fit-content;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 1rem;
+  }
+}
+
+@media screen and (min-width: 455px) {
+.h1-size-p {
+  font-size: 3rem;
+  font-weight: 600;
+  margin: 1rem;
+}
+
+.h2-size-p {
+  font-size: xx-large;
+  font-weight: 600;
+  margin: 1rem;
+}
+
+@media screen and (min-width: 560px) {
+  .h1-size-p {
+    font-size: 4rem;
+    font-weight: 600;
+    margin: 1rem;
+  }
+
+  .h2-size-p {
+    font-size: xx-large;
+    font-weight: 600;
+    margin: 1rem;
+  }
+
+  .h3-size-p {
+    font-size: large;
+  }
+}
+
+@media screen and (min-width: 694px) {
+  .heroContainer {
+    margin-inline: 0;
+  }
+  
+  .cardItem {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    margin: 2rem;
+    gap: 1rem;
+  }
+  
+  .cardItemReason {
+    grid-template-columns: 1fr 1fr;
+  }
+
+
+  .childCardReason > img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 1rem;
+  }
+}
+
+/* Untuk padding text-container */
+@media screen and (min-width: 855px) {
+  header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: 1.5rem;
+    background-color: white;
+    color: $primary-color;
+  }
+
+  header > h1 {
+    margin: 0;
+  }
+
+  .drawer-button {
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: white;
+    color: $primary-color;
+    cursor: pointer;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    z-index: 101;
+  }
+
+  .off-canvas {
+    display: flex;
+    position: relative;
+    padding: 1rem;
+    width: auto;
+    height: auto;
+  }
+
+  .off-canvas ul {
+    display: flex;
+    padding: 0;
+    flex-direction: row;
+    gap: 4rem;
+    list-style: none;
+  }
+
+  #logo-offcanvas {
+    display: none;
+  }
+
+  .off-canvas ul li {
+    padding: 1rem 0 0 0;
+    justify-content: center;
+  }
+
+  .off-canvas ul li h2 {
+    margin: 0;
+    font-size: large;
+  }
+
+  .off-canvas ul li p {
+    font-size: larger;
+    font-weight: 600;
+  }
+
+  .off-canvas ul li a {
+    text-decoration: none;
+    color: $secondary-color;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .childCardReason > p {
+    font-size: larger;
+  }
+
+  footer > div {
+    padding: 1rem;
+    font-size: medium;
+  }
+
+  .footer-head {
+    font-weight: 600;
+    font-size: larger;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .heroImage {
+    min-width: 1000px;
+  }
+
+  .cardItemReason {
+    padding: 2rem;
+    gap: 2rem;
+  }
+
+  .childCardReason > img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 1rem;
+  }
+
+  .childCardReason > p {
+    font-size: x-large;
+  }
+
+  footer {
+    color: white;
+    background-color: $primary-color;
+    padding: 2rem 4rem;
+  }
+
+  footer > div {
+    padding: 1rem;
+    font-size: large;
+  }
+
+  .footer-head {
+    font-weight: 600;
+    font-size: x-large;
+  }
+}
+}
