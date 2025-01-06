@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="theme-color" content="#D62300" />
     <title>Wareg Food</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -15,13 +16,15 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link rel="manifest" href="./app.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
     <script
       src="https://kit.fontawesome.com/2f1e3b5fc9.js"
       crossorigin="anonymous"
     ></script>
   </head>
   <body>
-    <a href="#mainContent" class="skip-link" tabindex="0"
+    <a href="#mainContent" id="skip-link" class="skip-link"
       >Menuju konten utama</a
     >
     <header>
@@ -30,7 +33,6 @@
         id="drawerBtn"
         aria-label="Menu drawer"
         class="drawer-button"
-        tabindex="0"
         aria-label="Tombol buka drawer"
       >
         <i class="fa-solid fa-bars"></i>
@@ -44,10 +46,18 @@
             </p>
           </li>
           <li>
-            <a href="/" class="drawer" aria-label="Home link">Home</a>
+            <a href="#/home" id="btn-home" class="drawer" aria-label="Home link"
+              >Home</a
+            >
           </li>
           <li>
-            <a href="#" class="drawer" aria-label="Favorite link">Favorite</a>
+            <a
+              href="#/favorite"
+              id="btn-fav"
+              class="drawer"
+              aria-label="Favorite link"
+              >Favorite</a
+            >
           </li>
           <li>
             <a
@@ -62,7 +72,7 @@
       </nav>
     </header>
     <main>
-      <article>
+      <article id="hero">
         <h2 class="hidden-header">Header 2</h2>
         <section id="heroContainer" class="heroContainer">
           <h3 class="hidden-header">Header 3</h3>
@@ -70,8 +80,9 @@
             <p class="h1-size-p"><i class="fa-solid fa-bowl-food"></i></p>
             <p class="h2-size-p">Hungry? Open WaregFood!</p>
             <p class="h3-size-p">
-              Explore your favorite restaurant from your favorite places here,
-              on our web. As smooth as it is an app. Countless restos to try.
+              Discover your favorite restaurant from your preferred locations on
+              our website. It’s as smooth as using an app. There are countless
+              restaurants to try.
             </p>
             <div class="welcome-container">
               <label for="search" class="hidden-header"></label>
@@ -91,28 +102,41 @@
           </div>
         </section>
       </article>
+
       <article id="mainContent">
         <h2>Explore Restaurant</h2>
+        <loading-bar>Memuat resto</loading-bar>
         <section class="cardItem">
           <h3 class="hidden-header">Header 3</h3>
         </section>
       </article>
       <article>
+        <section id="detail-page"></section>
+      </article>
+      <article id="favoriteContent">
+        <h2>Favorites Resto</h2>
+        <section id="favorite-page"></section>
+      </article>
+      <article id="WaregFoodReason">
         <h2>Why use the WaregFood?</h2>
         <section class="cardItemReason">
           <h3 class="hidden-header">Header 3</h3>
         </section>
       </article>
+      <button class="scroll-top-btn">
+        <i class="fa-solid fa-angle-up"></i>
+      </button>
     </main>
     <footer>
       <div>
         <h2><i class="fa-solid fa-bowl-food"></i> WaregFood</h2>
         <p class="footer-head">
-          It's like having the entire neighborhood's kitchen in your pocket
+          It feels like having access to the entire neighborhood's kitchen right
+          in your pocket.
         </p>
         <p>
-          Enjoy a large variety of meals, deals, and member-only features in
-          WaregFood web.
+          Explore a wide variety of meals, venues, and rating features on the
+          WaregFood website.
         </p>
         <p>&copy; 2024 WaregFood | Alan Aditya</p>
       </div>

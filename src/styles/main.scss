@@ -1,6 +1,15 @@
-$primary-color: RGB(214, 35, 0);
-$secondary-color: RGB(255, 135, 50);
+$primary-color: #d62300;
+$secondary-color: #ff8732;
 $touch-target-min: 44px;
+
+.bg-primary {
+  background-color: #ff4742;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0;
+  cursor: pointer;
+}
 
 * {
   box-sizing: border-box;
@@ -13,20 +22,17 @@ body {
 }
 
 button {
-  box-sizing: border-box;
   min-width: $touch-target-min;
   min-height: $touch-target-min;
 }
 
 a {
-  box-sizing: border-box;
   display: inline-block;
   min-width: $touch-target-min;
   min-height: $touch-target-min;
 }
 
 input {
-  box-sizing: border-box;
   min-width: $touch-target-min;
   min-height: $touch-target-min;
 }
@@ -63,9 +69,9 @@ input {
   padding: 0;
 
   &:focus {
-  top: 12px;
-  outline: 4px solid orange;
-  padding: 0.5rem;
+    top: 12px;
+    outline: 4px solid orange;
+    padding: 0.5rem;
   }
 }
 
@@ -145,10 +151,27 @@ header > h1 {
   color: $secondary-color;
   font-size: 1rem;
   font-weight: 600;
+  padding: 0 1rem;
 }
 
 .off-canvas.open {
   display: flex;
+}
+
+#favoriteContent {
+  display: none;
+}
+
+.no-fav {
+  height: 75vh;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.no-fav > span {
+  margin: 0;
 }
 
 // .text-container {
@@ -168,6 +191,10 @@ header > h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.text-container > p {
+  margin: 10px;
 }
 
 .heroImage {
@@ -213,7 +240,7 @@ header > h1 {
 
 .heroContainer {
   margin-inline: 0;
-  margin-block: 0;
+  margin-top: 0px;
   display: grid;
   align-items: center;
   justify-items: center;
@@ -276,10 +303,17 @@ h3 {
 
 .childCard {
   position: relative;
-  border: 1px solid $secondary-color;
+  border: 2px solid $secondary-color;
   border-radius: 1rem;
   padding: 1rem;
   cursor: pointer;
+}
+
+.childCard > div {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
 }
 
 .childCardReason {
@@ -337,27 +371,154 @@ h3 {
   display: none;
 }
 
+#detail-page {
+  display: none;
+  flex-direction: column;
+  padding: 1rem;
+  max-width: fit-content;
+  justify-self: center;
+  border: solid 3px $primary-color;
+  border-radius: 30px;
+  margin: 80px 0;
+}
+
+#detail-page > div > button {
+  background-color: #ff4742;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.detail-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: smaller;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  background-color: $secondary-color;
+  color: white;
+  border-radius: 5px;
+  margin: 20px;
+}
+
+form.form-add-review {
+  display: table;
+  margin-inline: 1rem;
+}
+
+div.form-add-review {
+  display: flex;
+  flex-direction: column;
+}
+
+label,
+input {
+  display: table-cell;
+  margin-bottom: 10px;
+}
+
+.form-add-review > textarea {
+  margin-bottom: 10px;
+  resize: vertical;
+  height: 200px;
+}
+
+label {
+  padding-right: 10px;
+}
+
+.btn-orange {
+  background: #ff4742;
+  border: 1px solid #ff4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Poppins", "proxima nova", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+
+  &:hover,
+  &:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: #ff4742;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
+}
+
+.childCard > div > .btn-orange {
+  &:focus {
+    outline: thick double black;
+  }
+}
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.foods {
+  display: flex;
+  flex-direction: row;
+  border: solid 1px $secondary-color;
+  padding: 10px 20px;
+}
+
+.drinks {
+  display: flex;
+  flex-direction: row;
+  border: solid 1px $secondary-color;
+  padding: 10px 20px;
+}
+
+.center-text-only {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
 @media screen and (min-width: 375px) {
   .h1-size-p {
     font-size: 3rem;
     font-weight: 600;
     margin: 1rem;
   }
-  
+
   .h2-size-p {
     font-size: x-large;
     font-weight: 600;
     margin: 1rem;
   }
-  
+
   .h3-size-p {
     font-size: medium;
-  }
-
-  .heroContainer {
-    margin-inline: 0;
-    margin-block: 0;
-    display: grid;
   }
 
   .text-container {
@@ -368,17 +529,7 @@ h3 {
     padding: 1rem 3rem;
     width: auto;
   }
-  
-  .heroImage {
-    grid-area: 1 / 1 / 2 / 2;
-    margin: 0rem;
-    width: 100%;
-    height: 450px;
-    border-radius: 0;
-    object-fit: cover;
-    filter: brightness(50%);
-  }
-  
+
   .welcome-container {
     grid-area: 1 / 1 / 2 / 2;
     width: fit-content;
@@ -393,16 +544,17 @@ h3 {
 }
 
 @media screen and (min-width: 455px) {
-.h1-size-p {
-  font-size: 3rem;
-  font-weight: 600;
-  margin: 1rem;
-}
+  .h1-size-p {
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 1rem;
+  }
 
-.h2-size-p {
-  font-size: xx-large;
-  font-weight: 600;
-  margin: 1rem;
+  .h2-size-p {
+    font-size: xx-large;
+    font-weight: 600;
+    margin: 1rem;
+  }
 }
 
 @media screen and (min-width: 560px) {
@@ -421,30 +573,50 @@ h3 {
   .h3-size-p {
     font-size: large;
   }
+
+  #detail-page {
+    font-size: larger;
+    max-width: 800px;
+  }
+
+  #detail-page > .img-center-only > img {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    border-radius: 1rem;
+  }
+
+  .img-center-only {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 @media screen and (min-width: 694px) {
   .heroContainer {
     margin-inline: 0;
   }
-  
+
   .cardItem {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     margin: 2rem;
     gap: 1rem;
   }
-  
+
   .cardItemReason {
     grid-template-columns: 1fr 1fr;
   }
-
 
   .childCardReason > img {
     width: 200px;
     height: 200px;
     object-fit: cover;
     border-radius: 1rem;
+  }
+
+  #detail-page {
+    max-width: 600px;
   }
 }
 
@@ -505,8 +677,14 @@ h3 {
   }
 
   .off-canvas ul li {
-    padding: 1rem 0 0 0;
+    padding: 0 0 0 0;
     justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $primary-color;
+      border-radius: 3rem;
+    }
   }
 
   .off-canvas ul li h2 {
@@ -524,6 +702,11 @@ h3 {
     color: $secondary-color;
     font-size: 1rem;
     font-weight: 600;
+    padding-top: 0.6rem;
+
+    &:hover {
+      color: white;
+    }
   }
 
   .childCardReason > p {
@@ -537,6 +720,10 @@ h3 {
 
   .footer-head {
     font-weight: 600;
+    font-size: larger;
+  }
+
+  #detail-page {
     font-size: larger;
   }
 }
@@ -577,5 +764,4 @@ h3 {
     font-weight: 600;
     font-size: x-large;
   }
-}
 }
