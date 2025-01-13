@@ -1,74 +1,7 @@
-import FavoriteRestoIdb from './favorite-resto-idb';
+import FavoriteRestoIdb from '../data/favorite-resto-idb';
 const { getResto, putResto, deleteResto } = FavoriteRestoIdb;
-import getAllFavResto from './favorite-page';
-// Base URL untuk API
-const BASE_URL = 'https://restaurant-api.dicoding.dev';
-
-const previousPage = '#/home'; // Default halaman asal adalah home
-let actualPreviousPage = previousPage; // Simpan hash halaman asal
-// Fungsi untuk mengupdate actualPreviousPage
-function updatePreviousPage() {
-  if (window.location.hash !== '#/detail' && window.location.hash !== '#detail-page') {
-    actualPreviousPage = window.location.hash;
-  }
-}
-
-// Fungsi untuk mengambil data dari endpoint /list
-async function fetchRestaurants() {
-  showLoading(loading);
-  try {
-    const response = await fetch(`${BASE_URL}/list`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.json();
-    displayRestaurants(data.restaurants);
-  } catch (error) {
-    console.error('Failed to fetch restaurant data:', error);
-    alert('Gagal memuat data');
-  } finally {
-    hideLoading(loading);
-  }
-}
-
-function displayRestaurants(restaurants) {
-  const container = document.querySelector('.cardItem');
-  container.innerHTML = ''; // Bersihkan kontainer
-
-  restaurants.forEach((restaurant) => {
-    const restaurantCard = document.createElement('div');
-    restaurantCard.classList.add('childCard');
-
-    restaurantCard.innerHTML = `
-      <img src="https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}" alt="${restaurant.name}">
-      <h3>${restaurant.name}</h3>
-      <p>City: ${restaurant.city}</p>
-      <div>
-        <p>Rating: ⭐ ${restaurant.rating}</p>
-        <button class="btn-orange detail-page-class" data-id="${restaurant.id}">Lebih lanjut</button>
-      </div>
-    `;
-
-    container.appendChild(restaurantCard);
-  });
-
-  // Tambahkan event listener ke semua tombol setelah elemen dibuat
-  const buttons = document.querySelectorAll('.btn-orange');
-  buttons.forEach((button) => {
-    button.addEventListener('click', function () {
-      updatePreviousPage();
-      console.log(`actualPreviousPage yg tersimpan yaitu ${window.location.hash}`);
-      window.location.hash = '#/detail'; // Set hash ke detail
-      const restaurantId = this.getAttribute('data-id');
-      showDetail(restaurantId);
-    });
-  });
-}
+import { loading, showLoading, hideLoading } from '../utils/show-loading';
+import { BASE_URL } from './home-api.js';
 
 async function showDetail(id) {
   showLoading(loading);
@@ -103,7 +36,6 @@ async function showDetail(id) {
               this.innerHTML =
                 '<button id="btn-fav-resto" class="bg-primary"><i class="fa-solid fa-heart"></i></button>';
             });
-            getAllFavResto();
           } else {
             // Remove restaurant from favorites
             deleteResto(data.restaurant.id).then(() => {
@@ -113,18 +45,9 @@ async function showDetail(id) {
               this.innerHTML =
                 '<button id="btn-fav-resto" class="bg-primary"><i class="fa-regular fa-heart"></i></button>';
             });
-            getAllFavResto();
           }
         });
       });
-
-    // Tampilkan halaman detail, sembunyikan halaman list
-    document.getElementById('mainContent').style.display = 'none';
-    document.getElementById('detail-page').style.display = 'flex';
-    document.getElementById('hero').style.display = 'none';
-    document.getElementById('WaregFoodReason').style.display = 'none';
-    document.getElementById('favoriteContent').style.display = 'none';
-    document.getElementsByTagName('footer')[0].style.display = 'none';
     window.scrollTo({ top: 0, behavior: 'instant' });
   } catch (error) {
     console.error('Failed to fetch restaurant detail:', error);
@@ -135,7 +58,19 @@ async function showDetail(id) {
 }
 
 function renderDetail(restaurant) {
-  const detailContainer = document.getElementById('detail-page');
+  document.getElementsByTagName('main')[0].innerHTML = `
+    <article>
+      <section id="resto-detail"></section>
+    </article>
+    <button class="scroll-top-btn">
+      <i class="fa-solid fa-angle-up"></i>
+    </button>`;
+
+  document.querySelector('.scroll-top-btn').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  const detailContainer = document.getElementById('resto-detail');
 
   let foodsHtml = '';
   restaurant.menus.foods.forEach((food) => {
@@ -192,6 +127,11 @@ function renderDetail(restaurant) {
     </form>
   `;
 
+  document.getElementById('btn-back-list').addEventListener('click', () => {
+    const prevRoute = sessionStorage.getItem('prevRoute') || '#/home';
+    window.location.hash = prevRoute; // Navigasi ke rute sebelumnya
+  });
+
   document
     .getElementById('add-review-form')
     .addEventListener('submit', async (event) => {
@@ -225,33 +165,6 @@ function renderDetail(restaurant) {
         alert('Failed to submit review');
       }
     });
-
-  document.getElementById('btn-back-list').addEventListener('click', () => {
-    document.getElementById('detail-page').style.display = 'none';
-
-    if (actualPreviousPage === '#/home') {
-      document.getElementById('mainContent').style.display = 'block';
-      document.getElementById('hero').style.display = 'flex';
-      document.getElementById('WaregFoodReason').style.display = 'block';
-      document.getElementsByTagName('footer')[0].style.display = 'block';
-      window.location.hash = '#/home';
-    } else if (actualPreviousPage === '#/favorite') {
-      document.getElementById('favoriteContent').style.display = 'block';
-      window.location.hash = '#/favorite';
-      // Sembunyikan elemen lain jika perlu
-    }
-  });
 }
 
-const loading = document.getElementsByTagName('loading-bar')[0];
-
-function showLoading(loading) {
-  loading.style.display = 'flex';
-}
-
-function hideLoading(loading) {
-  loading.style.display = 'none';
-}
-
-export { fetchRestaurants, displayRestaurants, showDetail, renderDetail };
-export default updatePreviousPage;
+export { showDetail, renderDetail };

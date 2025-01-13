@@ -3,6 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const loader = require('sass-loader');
+const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default;
+const ImageminMozjpeg = require('imagemin-mozjpeg');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: {
@@ -42,32 +45,68 @@ module.exports = {
         ],
       },
       {
-        test: /\.svg$/,
+        test: /\.(svg|png|jpe?g|gif)$/i, // Mencocokkan file SVG, PNG, JPEG, dan GIF
         use: [
           {
-            loader: 'file-loader',
+            loader: 'url-loader',
             options: {
-              name: 'images/illustrations/[name].[hash].[ext]',
-              outputPath: 'assets/',
-              publicPath: 'assets/',
-            }
-          }
-        ]
-      },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'url-loader', // Menggunakan url-loader
-            options: {
-              limit: 8192, // Batas ukuran file (8KB); file lebih kecil dari ini akan di-inline
+              limit: 8192, // Inline untuk file lebih kecil dari 8KB
               name: '[name].[hash].[ext]', // Format nama file
-              outputPath: 'images', // Output folder untuk gambar
+              outputPath: 'images', // Output folder untuk semua gambar
             },
           },
         ],
-      },
+      }
+      // {
+      //   test: /\.svg$/,
+      //   use: [
+      //     {
+      //       loader: 'file-loader',
+      //       options: {
+      //         name: 'images/illustrations/[name].[hash].[ext]',
+      //         outputPath: 'assets/',
+      //         publicPath: 'assets/',
+      //       }
+      //     }
+      //   ]
+      // },
+      // {
+      //   test: /\.(png|jpe?g|gif)$/i,
+      //   use: [
+      //     {
+      //       loader: 'url-loader', // Menggunakan url-loader
+      //       options: {
+      //         limit: 8192, // Batas ukuran file (8KB); file lebih kecil dari ini akan di-inline
+      //         name: '[name].[hash].[ext]', // Format nama file
+      //         outputPath: 'images', // Output folder untuk gambar
+      //       },
+      //     },
+      //   ],
+      // },
     ],
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      minSize: 20000,
+      maxSize: 70000,
+      minChunks: 1,
+      maxAsyncRequests: 30,
+      maxInitialRequests: 30,
+      automaticNameDelimiter: '~',
+      enforceSizeThreshold: 50000,
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -81,8 +120,21 @@ module.exports = {
         {
           from: path.resolve(__dirname, 'src/public/'),
           to: path.resolve(__dirname, 'dist/'),
+          globOptions: {
+            // CopyWebpackPlugin mengabaikan berkas yang berada di dalam folder images
+            ignore: ['**/**/heros/**'],
+          },
         },
       ],
     }),
+    new ImageminWebpackPlugin({
+      plugins: [
+        ImageminMozjpeg({
+          quality: 30,
+          progressive: true,
+        }),
+      ],
+    }),
+    new BundleAnalyzerPlugin(),
   ],
 };

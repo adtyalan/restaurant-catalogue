@@ -20,7 +20,7 @@ class LoadingBar extends HTMLElement {
 
       :host {
         position: absolute;
-        display: block;
+        display: none;
         z-index: 1000;
       }
 

@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="description" content="Wareg Food, all your favorite restaurant is in your hand!" />
     <meta name="theme-color" content="#D62300" />
     <title>Wareg Food</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,17 +19,51 @@
     />
     <link rel="manifest" href="./app.webmanifest" />
     <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    <style>
+    .skeleton-img-item {
+      aspect-ratio: 16/9;
+      animation: skeleton-loading 1s infinite;
+    }
+    
+    .skeleton-img-container {
+      aspect-ratio: 9/16;
+      animation: skeleton-loading 1s infinite;
+    }
+    
+    .skeleton-img-reason {
+      aspect-ratio: 1/1;
+      animation: skeleton-loading 1s infinite;
+    }
+    
+    @keyframes skeleton-loading {
+      0% {
+        background-color: #f0f0f0;
+      }
+      50% {
+        background-color: #e0e0e0;
+      }
+      100% {
+        background-color: #f0f0f0;
+      }
+    }
+    /* To hide skeleton when content is loaded */
+    .skeleton-loaded {
+      background: none;
+      animation: none;
+    }
+    </style>
     <script
       src="https://kit.fontawesome.com/2f1e3b5fc9.js"
       crossorigin="anonymous"
     ></script>
   </head>
   <body>
+    <loading-bar id="loading"></loading-bar>
     <a href="#mainContent" id="skip-link" class="skip-link"
       >Menuju konten utama</a
     >
     <header>
-      <h1><i class="fa-solid fa-bowl-food"></i> WaregFood</h1>
+      <h1><i width="24" class="fa-solid fa-bowl-food skeleton-img-reason"></i> WaregFood</h1>
       <button
         id="drawerBtn"
         aria-label="Menu drawer"
@@ -71,61 +106,7 @@
         </ul>
       </nav>
     </header>
-    <main>
-      <article id="hero">
-        <h2 class="hidden-header">Header 2</h2>
-        <section id="heroContainer" class="heroContainer">
-          <h3 class="hidden-header">Header 3</h3>
-          <div class="text-container">
-            <p class="h1-size-p"><i class="fa-solid fa-bowl-food"></i></p>
-            <p class="h2-size-p">Hungry? Open WaregFood!</p>
-            <p class="h3-size-p">
-              Discover your favorite restaurant from your preferred locations on
-              our website. It’s as smooth as using an app. There are countless
-              restaurants to try.
-            </p>
-            <div class="welcome-container">
-              <label for="search" class="hidden-header"></label>
-              <input
-                id="search"
-                name="search"
-                type="text"
-                aria-label="type your search keyword"
-              />
-              <button>
-                <i
-                  class="fa-solid fa-magnifying-glass"
-                  aria-label="search button"
-                ></i>
-              </button>
-            </div>
-          </div>
-        </section>
-      </article>
-
-      <article id="mainContent">
-        <h2>Explore Restaurant</h2>
-        <loading-bar>Memuat resto</loading-bar>
-        <section class="cardItem">
-          <h3 class="hidden-header">Header 3</h3>
-        </section>
-      </article>
-      <article>
-        <section id="detail-page"></section>
-      </article>
-      <article id="favoriteContent">
-        <h2>Favorites Resto</h2>
-        <section id="favorite-page"></section>
-      </article>
-      <article id="WaregFoodReason">
-        <h2>Why use the WaregFood?</h2>
-        <section class="cardItemReason">
-          <h3 class="hidden-header">Header 3</h3>
-        </section>
-      </article>
-      <button class="scroll-top-btn">
-        <i class="fa-solid fa-angle-up"></i>
-      </button>
+    <main class="skeleton">
     </main>
     <footer>
       <div>

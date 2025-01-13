@@ -1,17 +1,10 @@
-import FavoriteRestoIdb from './favorite-resto-idb';
+import FavoriteRestoIdb from '../data/favorite-resto-idb';
 const { getAllResto } = FavoriteRestoIdb;
-import { showDetail } from './dicoding-api';
-import updatePreviousPage from './dicoding-api';
+import { showDetail } from './detail-api';
 
 async function getAllFavResto() {
   const button = document.getElementById('btn-fav');
   button.addEventListener('click', () => {
-    document.getElementById('mainContent').style.display = 'none';
-    document.getElementById('detail-page').style.display = 'none';
-    document.getElementById('hero').style.display = 'none';
-    document.getElementById('WaregFoodReason').style.display = 'none';
-    document.getElementById('favoriteContent').style.display = 'block';
-    document.getElementsByTagName('footer')[0].style.display = 'none';
     document.getElementById('drawers').setAttribute('class', 'off-canvas');
   });
 
@@ -46,12 +39,14 @@ function displayFavRestaurants(restaurants) {
     restaurantCard.classList.add('childCard');
 
     restaurantCard.innerHTML = `
-      <img src="https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}" alt="${restaurant.name}">
+      <img data-src="https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}" alt="${restaurant.name}" class="lazyload">
       <h3>${restaurant.name}</h3>
       <p>City: ${restaurant.city}</p>
       <div>
         <p>Rating: ⭐ ${restaurant.rating}</p>
-        <button class="btn-orange" data-id="${restaurant.id}">Lebih lanjut</button>
+        <a href="#/detail/${restaurant.id}">
+          <button class="btn-orange" data-id="${restaurant.id}">Lebih lanjut</button>
+        </a>
       </div>
     `;
 
@@ -61,9 +56,6 @@ function displayFavRestaurants(restaurants) {
   const buttons = document.querySelectorAll('.btn-orange');
   buttons.forEach((button) => {
     button.addEventListener('click', function () {
-      updatePreviousPage();
-      console.log(`actualPreviousPage yg tersimpan yaitu ${window.location.hash}`);
-      window.location.hash = '#/detail'; // Set hash ke detail
       const restaurantId = this.getAttribute('data-id');
       showDetail(restaurantId);
     });
