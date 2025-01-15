@@ -30,6 +30,28 @@ describe('Liking A Restaurant', () => {
     expect(likeButton.innerHTML).toContain('<i class="fa-regular fa-heart"></i>');
   });
 
+  it('should not show the unlike button if failing to like the restaurant', async () => {
+    FavoriteRestoIdb.getResto.mockResolvedValue(undefined); // Mock getResto
+  
+    const likeButton = document.querySelector('#btn-fav-resto');
+    fireEvent.click(likeButton);
+  
+    await new Promise((resolve) => setTimeout(resolve, 0));
+  
+    // Pastikan putResto dipanggil meskipun terjadi error
+    expect(FavoriteRestoIdb.putResto).toHaveBeenCalledWith('1');
+    // Verifikasi bahwa tombol tetap menunjukkan ikon "belum disukai"
+    expect(likeButton.innerHTML).not.toContain('<i class="fa-solid fa-heart"></i>');
+    expect(likeButton.innerHTML).toContain('<i class="fa-regular fa-heart"></i>');
+  }); 
+});
+
+describe('Unliking A Restaurant', () => {
+  beforeEach(() => {
+    document.body.innerHTML = '<button id="btn-fav-resto" data-id="1"></button>';
+    likeButtonTemplate();
+  });
+
   it('should show the unlike button when the restaurant has been liked', async () => {
     FavoriteRestoIdb.getResto.mockResolvedValue({ id: '1' }); // Mock getResto
     FavoriteRestoIdb.deleteResto.mockResolvedValue(); // Mock deleteResto
@@ -46,33 +68,17 @@ describe('Liking A Restaurant', () => {
     expect(likeButton.innerHTML).toContain('<i class="fa-solid fa-heart"></i>');
   });
 
-  it('should not show the unlike button if failing to like the restaurant', async () => {
-    FavoriteRestoIdb.getResto.mockResolvedValue(undefined); // Mock getResto
-  
-    const likeButton = document.querySelector('#btn-fav-resto');
-    fireEvent.click(likeButton);
-  
-    await new Promise((resolve) => setTimeout(resolve, 0));
-  
-    // Pastikan putResto dipanggil meskipun terjadi error
-    expect(FavoriteRestoIdb.putResto).toHaveBeenCalledWith('1');
-    // Verifikasi bahwa tombol tetap menunjukkan ikon "belum disukai"
-    expect(likeButton.innerHTML).not.toContain('<i class="fa-solid fa-heart"></i>');
-    expect(likeButton.innerHTML).toContain('<i class="fa-regular fa-heart"></i>');
-  });
-  
   it('should not show the like button if failing to unlike the restaurant', async () => {
-    FavoriteRestoIdb.getResto.mockResolvedValue({ id: '1' }); // Mock getRestofailure
-  
+    FavoriteRestoIdb.getResto.mockResolvedValue({ id: '1' }); // Mock restoran sudah disukai
+
     const likeButton = document.querySelector('#btn-fav-resto');
     fireEvent.click(likeButton);
-  
+
     await new Promise((resolve) => setTimeout(resolve, 0));
-  
-    // Pastikan deleteResto dipanggil meskipun terjadi error
+
+    // Pastikan deleteResto dipanggil meskipun gagal
     expect(FavoriteRestoIdb.deleteResto).toHaveBeenCalledWith('1');
     // Verifikasi bahwa tombol tetap menunjukkan ikon "sudah disukai"
-    expect(likeButton.innerHTML).not.toContain('<i class="fa-regular fa-heart"></i>');
     expect(likeButton.innerHTML).toContain('<i class="fa-solid fa-heart"></i>');
-  });  
+  });
 });

@@ -21,8 +21,8 @@ Scenario('liking one restaurant', async ({ I }) => {
   I.amOnPage('/');
 
   I.seeElement('.childCard a');
-  I.click(locate('.childCard a').first());
   const firstRestoTitle = await I.grabTextFrom('.childCard h3');
+  I.click(locate('.childCard a').first());
 
   I.seeElement('#btn-fav-resto');
   I.click('#btn-fav-resto');
@@ -31,6 +31,32 @@ Scenario('liking one restaurant', async ({ I }) => {
   I.seeElement('.childCard');
   const likedRestoTitle = await I.grabTextFrom('.childCard h3');
   assert.strictEqual(firstRestoTitle, likedRestoTitle);
+});
+
+Scenario('unliking one restaurant', async ({ I }) => {
+  I.see('Your favs resto will appear here', '.no-fav p'); // Verifikasi teks yang muncul
+  I.amOnPage('/');
+
+  I.seeElement('.childCard a');
+  const firstRestoTitle = await I.grabTextFrom('.childCard h3');
+  I.click(locate('.childCard a').first());
+
+  I.seeElement('#btn-fav-resto');
+  I.click('#btn-fav-resto');
+
+  I.amOnPage('/#/favorite');
+  I.seeElement('.childCard');
+  const likedRestoTitle = await I.grabTextFrom('.childCard h3');
+  assert.strictEqual(firstRestoTitle, likedRestoTitle);
+
+  I.seeElement('.childCard a');
+  I.click(locate('.childCard a').first());
+
+  I.seeElement('#btn-fav-resto');
+  I.click('#btn-fav-resto');
+
+  I.amOnPage('/#/favorite');
+  I.see('Your favs resto will appear here', '.no-fav p'); // Verifikasi teks yang muncul
 });
 
 Scenario('add review to restaurant', async ({ I }) => {

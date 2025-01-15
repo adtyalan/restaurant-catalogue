@@ -14,6 +14,7 @@ export default [
       'webpack.common.js',
       'webpack.dev.js',
       'webpack.prod.js',
+      'dist/'
     ]
   }
 ];

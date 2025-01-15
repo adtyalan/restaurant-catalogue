@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const loader = require('sass-loader');
 const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default;
@@ -10,7 +11,6 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 module.exports = {
   entry: {
     app: path.resolve(__dirname, 'src/scripts/index.js'),
-    sw: path.resolve(__dirname, 'src/scripts/sw.js'),
   },
   output: {
     filename: '[name].bundle.js',
@@ -57,32 +57,6 @@ module.exports = {
           },
         ],
       }
-      // {
-      //   test: /\.svg$/,
-      //   use: [
-      //     {
-      //       loader: 'file-loader',
-      //       options: {
-      //         name: 'images/illustrations/[name].[hash].[ext]',
-      //         outputPath: 'assets/',
-      //         publicPath: 'assets/',
-      //       }
-      //     }
-      //   ]
-      // },
-      // {
-      //   test: /\.(png|jpe?g|gif)$/i,
-      //   use: [
-      //     {
-      //       loader: 'url-loader', // Menggunakan url-loader
-      //       options: {
-      //         limit: 8192, // Batas ukuran file (8KB); file lebih kecil dari ini akan di-inline
-      //         name: '[name].[hash].[ext]', // Format nama file
-      //         outputPath: 'images', // Output folder untuk gambar
-      //       },
-      //     },
-      //   ],
-      // },
     ],
   },
   optimization: {
@@ -122,9 +96,65 @@ module.exports = {
           to: path.resolve(__dirname, 'dist/'),
           globOptions: {
             // CopyWebpackPlugin mengabaikan berkas yang berada di dalam folder images
-            ignore: ['**/**/heros/**'],
+            ignore: ['**/**/illustrations/**'],
           },
         },
+      ],
+    }),
+    new WorkboxWebpackPlugin.GenerateSW({
+      swDest: './sw.bundle.js',
+      runtimeCaching: [
+        {
+          urlPattern: ({ url }) => url.href.startsWith('https://restaurant-api.dicoding.dev/list'),
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheName: 'restocatalogue-list-api',
+          },
+        },
+        {
+          urlPattern: ({ url }) => url.href.startsWith('https://restaurant-api.dicoding.dev/detail/'),
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheName: 'restocatalogue-detail-api',
+          },
+        },
+        {
+          urlPattern: ({ url }) => url.href.startsWith('https://restaurant-api.dicoding.dev/review'),
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheName: 'restocatalogue-review-api',
+          },
+        },
+        {
+          urlPattern: ({ url }) =>
+            url.origin === 'https://restaurant-api.dicoding.dev' &&
+            url.pathname.startsWith('/images/'),
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheName: 'restocatalogue-images',
+            expiration: {
+              maxEntries: 50,
+              maxAgeSeconds: 30 * 24 * 60 * 60,
+            },
+            cacheableResponse: {
+              statuses: [0, 200],
+            },
+          },
+        },
+        {
+          urlPattern: ({ url }) => url.pathname.startsWith('/images/'),
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheName: 'static-assets-images',
+            expiration: {
+              maxEntries: 50,
+              maxAgeSeconds: 30 * 24 * 60 * 60, // Simpan selama 30 hari
+            },
+            cacheableResponse: {
+              statuses: [0, 200], // Cache hanya untuk respons sukses
+            },
+          },
+        }        
       ],
     }),
     new ImageminWebpackPlugin({

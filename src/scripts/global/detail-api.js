@@ -99,15 +99,14 @@ function renderDetail(restaurant) {
     </button>
     </div>
     <h3>${restaurant.name}</h3>
-    <div class="img-center-only"><img src="https://restaurant-api.dicoding.dev/images/medium/${
-  restaurant.pictureId
-}" alt="${restaurant.name}"></div>
+    <div class="img-center-only">
+    <img src="https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}" alt="${restaurant.name}"></div>
     <p><strong>Address:</strong> ${restaurant.address}</p>
     <p><strong>City:</strong> ${restaurant.city}</p>
-    <p><strong>Deskripsi:</strong> ${restaurant.description.substring(
+    <p><strong>Deskripsi:</strong>
+    ${restaurant.description.substring(
     0,
-    1000
-  )}...</p>
+    1000)}...</p>
     <p><center class="center-text-only"><strong>Menu Makanan:</strong></center> ${foodsHtml}</p>
     <p><center class="center-text-only"><strong>Menu Minuman:</strong></center> ${drinksHtml}</p>
     <p><center class="center-text-only"><strong>Customer Reviews:</strong></center> ${reviewsHtml}</p>
